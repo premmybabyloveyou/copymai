@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-labelledby="t">
+  <title id="t">Demo reference artwork: Botanical garden in rain</title>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#d8e4d7"/><stop offset="1" stop-color="#f0e6cb"/></linearGradient>
+    <linearGradient id="hill" x2="0" y2="1"><stop stop-color="#849985"/><stop offset="1" stop-color="#4c6c5b"/></linearGradient>
+    <linearGradient id="water" x2="0" y2="1"><stop stop-color="#879d82"/><stop offset="1" stop-color="#435d51"/></linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#sky)"/>
+  <circle cx="596" cy="122" r="48" fill="#f6dca7" opacity=".75"/>
+  <path d="M0 283 142 166l102 105 133-154 145 164 98-106 180 128v197H0Z" fill="#b0b69b"/>
+  <path d="m0 322 168-122 128 116 174-145 133 133 114-88 83 54v230H0Z" fill="url(#hill)"/>
+  <path d="M0 367q145-48 292-7t260 1 248-20v159H0Z" fill="url(#water)"/>
+  <path d="M0 410q130-24 235 1t250 1 315-5M0 449q150-20 272 4t247 0 281-1" fill="none" stroke="#d1ddc5" stroke-width="8" opacity=".6"/>
+  <g fill="#315447"><path d="M106 366V204h17v162Zm-52 0q12-86 60-132 50 44 62 132Z"/><path d="M677 357V177h17v180Zm-57 0q11-98 65-143 55 45 67 143Z"/></g>
+  <g fill="#c69962"><circle cx="252" cy="341" r="8"/><circle cx="272" cy="329" r="7"/><circle cx="535" cy="347" r="9"/><circle cx="556" cy="334" r="7"/></g>
+  <g stroke="#f3f5e9" stroke-width="3" opacity=".58"><path d="m175 74-14 49m85-58-14 52m107-45-14 51m128-52-14 52m118-53-14 52m126-35-14 52m68-41-14 51"/></g>
+</svg>

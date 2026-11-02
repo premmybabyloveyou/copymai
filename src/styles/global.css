@@ -1,0 +1,7 @@
+@import "tailwindcss";
+@theme {
+  --color-ip-navy: #132b43;
+  --color-ip-teal: #138b83;
+  --color-ip-mist: #f5f7f8;
+  --font-sans: "DM Sans", "Noto Sans Thai", ui-sans-serif, system-ui, sans-serif;
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" role="img" aria-labelledby="t">
+  <title id="t">ปกนิยายตัวอย่าง: สวนหลังฝน</title>
+  <defs><linearGradient id="a" x2="0" y2="1"><stop stop-color="#d7e9dc"/><stop offset="1" stop-color="#6c9b86"/></linearGradient></defs>
+  <rect width="600" height="420" fill="#f2eee4"/><rect x="30" y="25" width="540" height="370" rx="16" fill="url(#a)"/>
+  <circle cx="450" cy="100" r="42" fill="#f4e3b0"/>
+  <path d="m30 255 125-100 95 78 110-115 90 95 120-70v252H30Z" fill="#789888"/>
+  <path d="m30 295 145-90 105 74 115-88 90 78 85-42v168H30Z" fill="#375f54"/>
+  <path d="M30 333q130-34 258 0t282-4v66H30Z" fill="#31594f"/>
+  <path d="M30 350q130-20 258 0t282-4" fill="none" stroke="#b9d1bd" stroke-width="6"/>
+  <g fill="#1f3768" text-anchor="middle" font-family="sans-serif"><text x="300" y="95" font-size="18" letter-spacing="5">COPYMAI · DEMO NOVEL</text><text x="300" y="320" font-size="34" font-weight="700">สวนหลังฝน</text><text x="300" y="355" font-size="16">เรื่องราวของความทรงจำและฤดูกาล</text></g>
+</svg>
