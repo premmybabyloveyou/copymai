@@ -22,10 +22,14 @@ const links: { id: PageId; label: string; icon: typeof LayoutDashboard }[] = [
 export function AppLayout({
   page,
   navigate,
+  onLogout,
+  userName,
   children,
 }: {
   page: PageId;
   navigate: (page: PageId) => void;
+  onLogout: () => void;
+  userName: string;
   children: ReactNode;
 }) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -91,10 +95,10 @@ export function AppLayout({
           <div className="mt-2 border-t border-white/15 pt-3 lg:hidden">
             <div className="flex items-center gap-3 px-3 py-2">
               <span className="grid size-9 shrink-0 place-items-center rounded-full bg-emerald-100 text-sm font-semibold text-emerald-800">
-                ท
+                {userName.charAt(0).toUpperCase()}
               </span>
               <span className="min-w-0 text-xs">
-                <b className="block truncate text-white">ทักษ์ดนัย นิยมทรัพย์</b>
+                <b className="block truncate text-white">{userName}</b>
                 <small className="mt-1 block text-[10px] text-slate-300">
                   Personal workspace
                 </small>
@@ -104,7 +108,7 @@ export function AppLayout({
               type="button"
               onClick={() => {
                 setMobileNavOpen(false);
-                navigate("landing");
+                onLogout();
               }}
               className="mt-1 flex w-full items-center gap-2.5 rounded-xl px-3 py-2.5 text-left text-xs font-medium text-slate-300 transition hover:bg-white/10 hover:text-white"
             >
@@ -123,10 +127,10 @@ export function AppLayout({
             aria-expanded={profileOpen}
           >
             <span className="grid size-9 shrink-0 place-items-center rounded-full bg-emerald-100 text-sm font-semibold text-emerald-800">
-              ท
+              {userName.charAt(0).toUpperCase()}
             </span>
             <span className="min-w-0 text-xs">
-              <b className="block truncate">ทักษ์ดนัย นิยมทรัพย์</b>
+              <b className="block truncate">{userName}</b>
               <small className="mt-1 block text-[10px] text-slate-300">
                 Personal workspace
               </small>
@@ -143,7 +147,7 @@ export function AppLayout({
                 onClick={() => {
                   setProfileOpen(false);
                   setMobileNavOpen(false);
-                  navigate("landing");
+                  onLogout();
                 }}
                 className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-xs font-medium text-slate-700 transition hover:bg-rose-50 hover:text-rose-700"
               >

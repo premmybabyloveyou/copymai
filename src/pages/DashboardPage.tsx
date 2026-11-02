@@ -50,7 +50,7 @@ export function DashboardPage({
   return (
     <div className="space-y-5 sm:space-y-6">
       <PageHeader
-        title="สวัสดีค่ะ/ครับ คุณทักษ์ดนัย"
+        title="สวัสดีค่ะ/ครับ "
         description="ติดตามผลงานและตรวจสอบความคล้ายได้จากที่นี่"
         action={
           <button
