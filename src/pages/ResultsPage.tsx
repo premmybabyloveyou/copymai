@@ -1,6 +1,8 @@
+import { useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
+  Calculator,
   Download,
   ScanSearch,
   ShieldCheck,
@@ -46,6 +48,13 @@ export function ResultsPage({
     ? "73%"
     : "78%";
   const workTitle = uploadedWork?.name ?? scanRecord?.title ?? "สวนหลังฝน";
+  const [baseValue, setBaseValue] = useState(1000);
+  const [foundCount, setFoundCount] = useState(5);
+  const [durationMultiplier, setDurationMultiplier] = useState(1.2);
+
+  const estimatedAmount = Math.round(
+    baseValue * foundCount * durationMultiplier,
+  );
 
   return (
     <div className="space-y-5 sm:space-y-6">
@@ -203,6 +212,80 @@ export function ResultsPage({
             และบริบทของผลงานโดยผู้เชี่ยวชาญก่อนดำเนินการต่อ
           </p>
         </div>
+      </section>
+      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_14px_40px_-30px_rgba(31,55,104,.2)] sm:p-5">
+        <div className="flex items-start gap-3">
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#eef5f4] text-[#17877e]">
+            <Calculator size={19} />
+          </span>
+          <div>
+            <p className="text-[10px] font-bold tracking-[.14em] text-[#17877e]">
+              DEMO ESTIMATE
+            </p>
+            <h2 className="mt-1 text-sm font-bold text-[#1f3768]">
+              ประเมินมูลค่าความเสียหายเบื้องต้น
+            </h2>
+            <p className="mt-1 text-[10px] leading-5 text-slate-500">
+              ปรับสมมติฐานเพื่อดูตัวอย่างการคำนวณ ตัวเลขนี้ไม่ได้คำนวณจากคะแนนความคล้าย
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-5 grid gap-4 sm:grid-cols-3">
+          <label className="text-[11px] font-medium text-slate-600">
+            มูลค่าฐานต่อครั้ง (บาท)
+            <input
+              type="number"
+              min="0"
+              value={baseValue}
+              onChange={(event) =>
+                setBaseValue(Math.max(0, Number(event.target.value)))
+              }
+              className="mt-1.5 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-[#17877e] focus:ring-4 focus:ring-[#17877e]/10"
+            />
+          </label>
+
+          <label className="text-[11px] font-medium text-slate-600">
+            จำนวนครั้ง/รายการที่พบ
+            <input
+              type="number"
+              min="0"
+              value={foundCount}
+              onChange={(event) =>
+                setFoundCount(Math.max(0, Number(event.target.value)))
+              }
+              className="mt-1.5 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-[#17877e] focus:ring-4 focus:ring-[#17877e]/10"
+            />
+          </label>
+
+          <label className="text-[11px] font-medium text-slate-600">
+            ตัวคูณระยะเวลา
+            <input
+              type="number"
+              min="0"
+              step="0.1"
+              value={durationMultiplier}
+              onChange={(event) =>
+                setDurationMultiplier(Math.max(0, Number(event.target.value)))
+              }
+              className="mt-1.5 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-[#17877e] focus:ring-4 focus:ring-[#17877e]/10"
+            />
+          </label>
+        </div>
+
+        <div className="mt-4 rounded-xl bg-[#f5f8fa] p-4">
+          <p className="text-[10px] text-slate-500">
+            สูตรตัวอย่าง: มูลค่าฐาน × จำนวนที่พบ × ตัวคูณระยะเวลา
+          </p>
+          <p className="mt-1 text-xl font-bold text-[#1f3768]">
+            ฿{estimatedAmount.toLocaleString("th-TH")}
+          </p>
+        </div>
+
+        <p className="mt-3 text-[10px] leading-5 text-amber-800">
+          เป็นตัวเลขจำลองเพื่อประกอบการคัดกรอง ไม่ใช่การประเมินทางกฎหมาย
+          หรือยอดเรียกร้องจริง ควรให้ผู้เชี่ยวชาญพิจารณาข้อเท็จจริงและหลักฐาน
+        </p>
       </section>
 
       <div className="flex flex-col gap-2 sm:flex-row">

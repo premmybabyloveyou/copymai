@@ -1,11 +1,11 @@
 import { useState, type ReactNode } from "react";
 import {
+  Camera,
   ClipboardList,
   FileSearch,
   LayoutDashboard,
   LogOut,
   Menu,
-  Plus,
   Sparkles,
   X,
 } from "lucide-react";
@@ -15,7 +15,7 @@ const links: { id: PageId; label: string; icon: typeof LayoutDashboard }[] = [
   { id: "dashboard", label: "ภาพรวม", icon: LayoutDashboard },
   { id: "scan", label: "ตรวจความคล้าย", icon: FileSearch },
   { id: "reports", label: "ผลการตรวจ", icon: ClipboardList },
-  { id: "community-report", label: "แจ้งเบาะแส", icon: Plus },
+  { id: "community-report", label: "แจ้งเบาะแส", icon: Camera },
   { id: "plans", label: "แพ็กเกจ", icon: Sparkles },
 ];
 

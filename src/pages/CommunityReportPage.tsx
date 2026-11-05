@@ -4,6 +4,7 @@ import {
   ArrowRight,
   CheckCircle2,
   FileSearch,
+  Camera,
   Send,
   ShieldCheck,
 } from "lucide-react";
@@ -17,6 +18,36 @@ export function CommunityReportPage({
 }) {
   const [sent, setSent] = useState(false);
   const [reportId, setReportId] = useState("");
+  const [imagePreview, setImagePreview] = useState("");
+  const [imageError, setImageError] = useState("");
+
+  function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    setImageError("");
+    setImagePreview("");
+
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setImageError("กรุณาเลือกไฟล์รูปภาพ");
+      event.target.value = "";
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setImageError("ไฟล์ภาพต้องมีขนาดไม่เกิน 5 MB");
+      event.target.value = "";
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        setImagePreview(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  }
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -39,11 +70,17 @@ export function CommunityReportPage({
           className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_14px_40px_-30px_rgba(31,55,104,.25)]"
           onSubmit={submit}
         >
-          <div className="border-b border-slate-100 bg-white px-4 py-4 sm:px-7 sm:py-5">
-            <h2 className="text-sm font-bold text-[#1f3768]">ข้อมูลเบาะแส</h2>
-            <p className="mt-1 text-xs leading-5 text-slate-500">
-              ใส่รายละเอียดเท่าที่มี เพื่อช่วยให้ตรวจสอบแหล่งที่พบได้ง่ายขึ้น
-            </p>
+          <div className="flex items-center gap-3 border-b border-slate-100 bg-white px-4 py-4 sm:px-7 sm:py-5">
+            <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#e9f5f2] text-[#17877e]">
+              <Camera size={20} />
+            </span>
+
+            <div>
+              <h2 className="text-sm font-bold text-[#1f3768]">ข้อมูลเบาะแส</h2>
+              <p className="mt-1 text-xs leading-5 text-slate-500">
+                ใส่รายละเอียดเท่าที่มี เพื่อช่วยให้ตรวจสอบแหล่งที่พบได้ง่ายขึ้น
+              </p>
+            </div>
           </div>
 
           <div className="grid gap-x-5 gap-y-4 p-4 sm:grid-cols-2 sm:p-7">
@@ -99,6 +136,48 @@ export function CommunityReportPage({
                 placeholder="อธิบายสิ่งที่พบ เช่น ชื่อสินค้า บัญชีผู้ขาย หรือวันที่พบ"
               />
             </label>
+            <div className="sm:col-span-2">
+              <label className="block text-xs font-semibold text-slate-700">
+                ภาพประกอบ
+                <span className="ml-1 font-normal text-slate-400">
+                  (ไม่บังคับ · PNG, JPG, WEBP · สูงสุด 5 MB)
+                </span>
+              </label>
+
+              <label className="mt-2 flex min-h-32 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-[#b9d9d4] bg-[#f8fbfa] p-4 text-center transition hover:bg-[#eef7f5]">
+                {imagePreview ? (
+                  <img
+                    src={imagePreview}
+                    alt="ตัวอย่างภาพที่เลือก"
+                    className="max-h-56 max-w-full rounded-lg object-contain"
+                  />
+                ) : (
+                  <>
+                    <Camera size={24} className="text-[#17877e]" />
+                    <span className="mt-2 text-xs font-semibold text-[#1f3768]">
+                      เลือกภาพหลักฐาน
+                    </span>
+                    <span className="mt-1 text-[10px] text-slate-400">
+                      คลิกเพื่อเลือกภาพจากอุปกรณ์
+                    </span>
+                  </>
+                )}
+
+                <input
+                  className="sr-only"
+                  type="file"
+                  name="evidenceImage"
+                  accept="image/png,image/jpeg,image/webp"
+                  onChange={handleImageChange}
+                />
+              </label>
+
+              {imageError && (
+                <p role="alert" className="mt-2 text-xs text-red-600">
+                  {imageError}
+                </p>
+              )}
+            </div>
             <label className="flex items-start gap-2.5 text-xs leading-5 text-slate-600 sm:col-span-2">
               <input
                 type="checkbox"

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  ArrowRight,
   BookOpen,
   FileSearch,
   FileUp,
@@ -21,6 +20,9 @@ export function ScanPage({
   const [fileName, setFileName] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [category, setCategory] = useState("ภาพ / กราฟิก");
+  const [scanMode, setScanMode] = useState<"infringement" | "pre-registration">(
+    "infringement"
+  );
   const [message, setMessage] = useState("");
   const field =
     "mt-1.5 w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-[#14213d] outline-none transition placeholder:text-slate-400 focus:border-[#17877e] focus:ring-4 focus:ring-[#17877e]/10";
@@ -39,17 +41,15 @@ export function ScanPage({
     const isText =
       file.type === "text/plain" || file.name.toLowerCase().endsWith(".txt");
     if (isText) {
-      void file
-        .text()
-        .then((text) =>
-          done({
-            name: file.name,
-            category: workCategory,
-            previewUrl,
-            audioUrl,
-            excerpt: text.slice(0, 1500),
-          })
-        );
+      void file.text().then((text) =>
+        done({
+          name: file.name,
+          category: workCategory,
+          previewUrl,
+          audioUrl,
+          excerpt: text.slice(0, 1500),
+        })
+      );
     } else {
       done({ name: file.name, category: workCategory, previewUrl, audioUrl });
     }
@@ -192,24 +192,43 @@ export function ScanPage({
               </a>
             </div>
 
-            <label className="my-5 flex items-start gap-2.5 text-xs leading-5 text-slate-600">
-              <input
-                type="checkbox"
-                defaultChecked
-                className="mt-1 size-4 shrink-0 accent-[#17877e]"
-              />
-              ฉันมีสิทธิหรือได้รับอนุญาตให้อัปโหลดไฟล์นี้
-            </label>
+            <div className="inline-flex max-w-full rounded-xl border border-slate-200 bg-slate-50 p-1">
+              <button
+                type="button"
+                aria-pressed={scanMode === "infringement"}
+                onClick={() => setScanMode("infringement")}
+                className={`rounded-lg px-3 py-2 text-xs font-semibold transition sm:px-4 ${
+                  scanMode === "infringement"
+                    ? "bg-[#1f3768] text-white shadow-sm"
+                    : "text-slate-600 hover:bg-white hover:text-[#1f3768]"
+                }`}
+              >
+                ตรวจสอบการละเมิด
+              </button>
+
+              <button
+                type="button"
+                aria-pressed={scanMode === "pre-registration"}
+                onClick={() => setScanMode("pre-registration")}
+                className={`rounded-lg px-3 py-2 text-xs font-semibold transition sm:px-4 ${
+                  scanMode === "pre-registration"
+                    ? "bg-[#1f3768] text-white shadow-sm"
+                    : "text-slate-600 hover:bg-white hover:text-[#1f3768]"
+                }`}
+              >
+                เช็กก่อนยื่นจดสิทธิ์
+              </button>
+            </div>
+
             <button
               type="button"
               onClick={() => startScan()}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1f3768] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#182c55] sm:w-auto"
+              className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1f3768] px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#182c55] focus:outline-none focus:ring-4 focus:ring-[#17877e]/20"
             >
-              เริ่มตรวจความคล้าย <ArrowRight size={15} />
+              {scanMode === "infringement"
+                ? "เริ่มตรวจสอบการละเมิด"
+                : "ตรวจผลงานก่อนยื่นจดสิทธิ์"}
             </button>
-            <p className="mt-4 rounded-xl border border-amber-100 bg-amber-50/70 px-3.5 py-3 text-[11px] leading-5 text-amber-900">
-              คะแนนเป็นผลคัดกรองเท่านั้น ไม่ใช่ข้อสรุปทางกฎหมาย
-            </p>
           </div>
         </section>
 

@@ -32,12 +32,14 @@ export function ReportsPage({
         </header>
 
         <div className="hidden overflow-x-auto md:block">
-          <div className="grid min-w-[640px] grid-cols-[2fr_.8fr_1fr_1.2fr] gap-3 border-b border-slate-100 bg-slate-50/70 px-5 py-3 text-[10px] font-semibold text-slate-500">
+          <div className="grid min-w-[760px] grid-cols-[2fr_.8fr_1fr_1.2fr] gap-3 border-b border-slate-100 bg-slate-50/70 px-5 py-3 text-[10px] font-semibold text-slate-500">
             <span>ผลงาน</span>
             <span>ประเภท</span>
             <span>วันที่</span>
             <span>คะแนน / สถานะ</span>
+            <span></span>
           </div>
+
           {mockScans.map((scan) => (
             <button
               key={scan.id}
@@ -54,6 +56,11 @@ export function ReportsPage({
               <span className="text-slate-500">{scan.date}</span>
               <span className="flex items-center gap-2 font-semibold text-[#1f3768]">
                 {scan.score}%<StatusBadge status={scan.status} />
+              </span>
+
+              {/* เพิ่มตรงนี้ หลังช่องคะแนน/สถานะ และก่อนปิดปุ่ม */}
+              <span className="whitespace-nowrap rounded-lg bg-[#eaf6f3] px-3 py-2 text-[10px] font-semibold text-[#17877e]">
+                ดูรายละเอียด →
               </span>
             </button>
           ))}
@@ -79,6 +86,11 @@ export function ReportsPage({
               </span>
               <span className="flex shrink-0 flex-col items-end gap-1.5 text-xs font-bold text-[#1f3768]">
                 {scan.score}%<StatusBadge status={scan.status} />
+              </span>
+
+              {/* เพิ่มตรงนี้ ก่อนปิดปุ่ม */}
+              <span className="shrink-0 text-[10px] font-semibold text-[#17877e]">
+                ดูรายละเอียด →
               </span>
             </button>
           ))}
